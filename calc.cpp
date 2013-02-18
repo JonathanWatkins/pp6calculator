@@ -2,6 +2,8 @@
 #include <sstream>
 #include <string.h>
 #include <climits>
+#include <cmath>
+
 
 
 
@@ -40,8 +42,8 @@ double multiply(){
 	
 	stringstream oss;
 	
-	double a= get_double(NULL);
-	double b=get_double(NULL);
+	double a= get_double("");
+	double b=get_double("");
 	oss << a << " * " << b << " = " << a*b;
 	cout << oss.str();
 	
@@ -98,6 +100,19 @@ double intercept(){
 	
 }
 
+double threevector() {
+	
+	stringstream oss;
+	
+	double a= get_double("Component 1: ");
+	double b= get_double("Component 2: ");
+	double c= get_double("Component 3: ");
+	
+	oss << "The length of the vector is : " << sqrt(a*a+b*b+c*c);
+	
+	cout << oss.str();
+	
+}
 
 
 
@@ -106,10 +121,8 @@ int main() {
 	int num1= 10;
 	
 	f(&num1);
-	cout << num1 << endl;
-
-
 	
+	cout << num1 << endl;
 	
 	double a;
 	double b;
@@ -120,7 +133,7 @@ int main() {
 	stringstream optionsOss;
 	
 	optionsOss << "What operation do you want to perform ?" << endl;
-	optionsOss << "'+' '-' '*' '/' 'i' or 'q' to quit" << endl;
+	optionsOss << "'+' '-' '*' '/' 'i' '3' or 'q' to quit" << endl;
 		
 	
 	do
@@ -134,7 +147,7 @@ int main() {
 			
 			cin >> operation;
 			
-			if (( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/'  && *operation!='q' && *operation!='i')) {
+			if (( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/'  && *operation!='q' && *operation!='i' && *operation!='3')) {
 				cin.clear();
 				cin.ignore();
 				cout << "\nThis is not a valid choice!  Please choose again." << endl; 
@@ -145,7 +158,7 @@ int main() {
 			}
 	
 		}
-		while ( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/' && *operation!='q' && *operation!='i');
+		while ( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/' && *operation!='q' && *operation!='i' && *operation!='3');
 		
 		if (*operation!='q') {
 			
@@ -160,7 +173,11 @@ int main() {
 				divide();
 			} else if (*operation=='i') {
 				intercept();
+			} else if (*operation=='3') {
+				threevector();
 			}
+			
+			
 			
 			
 			cout << "\n\n";
