@@ -4,9 +4,6 @@
 #include <climits>
 #include <cmath>
 
-
-
-
 using namespace std;
 
 // Just a quick bit on passing using pointerst
@@ -114,6 +111,55 @@ double threevector() {
 	
 }
 
+double fourvector() {
+	
+	stringstream oss;
+	
+	double ct=get_double("ct: ");
+	double x= get_double("x: ");
+	double y= get_double("y: ");
+	double z= get_double("z: ");
+	
+	double dr2=x*x+y*y+z*z;
+	double ct2=ct*ct;
+	if (ct2>dr2) {
+		oss << "The interval is time-like and events are casually related." << endl;
+	} else if (ct2==dr2) {
+		oss << "The interval is light-like and events are casually related." << endl;
+	} else if (ct2<dr2) {
+		oss << "The interval is space-like and events lie outside each others light cone." << endl;
+	}
+	
+	oss << "The space-time interval is ds^2 = " << ct*ct-x*x-y*y-z*z;
+	
+	cout << oss.str();
+	
+}
+
+double invariantMass() {
+	
+	stringstream oss;
+	
+	cout << "The Energy-momentum relation is defined as" << endl
+	<< "    E^2 = (pc)^2 + (m0 c^2)^2" << endl
+	<< "where p= gamma(u) m u and p= |p|" << endl
+	<< "From this definition the invariant mass is calculated as " << endl
+	<< "    m0^2 c^2 = (E/c)^2 - |p|^2  or m0^2=E^2-|p|^2 if c=1" << endl
+	<< "Note: E and p are measured differently depending on the observers frame." << endl << endl;  
+	double E= get_double("E: ");
+	double px= get_double("px: ");
+	double py= get_double("py: ");
+	double pz= get_double("pz: ");
+	
+	cout << "The invariant mass squared is m0^2 = " << E*E - px*px - py*py - pz*pz << endl;
+	
+	cout << oss.str();
+	
+}
+
+
+
+
 
 
 int main() {
@@ -133,7 +179,7 @@ int main() {
 	stringstream optionsOss;
 	
 	optionsOss << "What operation do you want to perform ?" << endl;
-	optionsOss << "'+' '-' '*' '/' 'i' '3' or 'q' to quit" << endl;
+	optionsOss << "'+' '-' '*' '/' 'i' '3'-vector '4'-vector invariant 'm'ass or 'q' to quit" << endl;
 		
 	
 	do
@@ -147,7 +193,7 @@ int main() {
 			
 			cin >> operation;
 			
-			if (( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/'  && *operation!='q' && *operation!='i' && *operation!='3')) {
+			if (( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/'  && *operation!='q' && *operation!='i' && *operation!='3' && *operation!='4' && *operation!='m')) {
 				cin.clear();
 				cin.ignore();
 				cout << "\nThis is not a valid choice!  Please choose again." << endl; 
@@ -158,7 +204,7 @@ int main() {
 			}
 	
 		}
-		while ( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/' && *operation!='q' && *operation!='i' && *operation!='3');
+		while ( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/' && *operation!='q' && *operation!='i' && *operation!='3' && *operation!='4' && *operation!='m');
 		
 		if (*operation!='q') {
 			
@@ -175,7 +221,14 @@ int main() {
 				intercept();
 			} else if (*operation=='3') {
 				threevector();
+			} else if (*operation=='4') {
+				fourvector();
+			} else if (*operation=='m') {
+				invariantMass();
 			}
+			
+			
+			 
 			
 			
 			
