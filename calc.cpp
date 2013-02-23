@@ -23,7 +23,7 @@ double get_double (string question) {
 		cout << question;
 		
 	};
-
+    return a;
 }
 
 
@@ -157,9 +157,47 @@ double invariantMass() {
 	
 }
 
-
-
-
+double rootsOfQuadratic() {
+	
+    stringstream oss;
+	
+	cout << "A quadratic is defined as ax^2 + bx + c = 0" << endl;
+    cout << "Enter the coefficients" << endl;
+    double a= get_double("a=");
+	double b= get_double("b=");
+	double c= get_double("c=");
+	cout << a << endl;
+    cout << b << endl;
+    cout << c << endl;
+    
+    double discriminant=b*b-4.0*a*c;
+    cout << "The discriminant is " << discriminant << endl;
+    if (discriminant>0) {  //   Real
+        cout << "The roots are real" << endl;
+        cout << "The roots are x = " << (-b+sqrt(discriminant))/2.0/a
+            << " and x = " << (-b-sqrt(discriminant))/2.0/a << endl;
+        
+    }
+    else if (0==discriminant) { // Single root
+        cout << "There is a single root" << endl;
+        cout << "The root is x = " << -b/2.0/a << endl;
+            
+        
+        
+    }
+    else if (discriminant<0) {  // Complex
+        cout << "The roots are complex" << endl;
+        cout << "The roots are x = ";
+        if (0!=-b/2.0/a) cout << -b/2.0/a << " ";
+        cout << "+ i" << sqrt(-discriminant)/2.0/a
+        << " and x = ";
+        if (0!=-b/2.0/a) cout << -b/2.0/a << " ";
+        cout << "- i" << sqrt(-discriminant)/2.0/a << endl;
+        
+    
+    }
+    
+}
 
 
 int main() {
@@ -179,7 +217,7 @@ int main() {
 	stringstream optionsOss;
 	
 	optionsOss << "What operation do you want to perform ?" << endl;
-	optionsOss << "'+' '-' '*' '/' 'i' '3'-vector '4'-vector invariant 'm'ass or 'q' to quit" << endl;
+	optionsOss << "'+' '-' '*' '/' 'i' 'q'uadractic solve '3'-vector '4'-vector invariant 'm'ass or 'x' to exit" << endl;
 		
 	
 	do
@@ -193,7 +231,7 @@ int main() {
 			
 			cin >> operation;
 			
-			if (( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/'  && *operation!='q' && *operation!='i' && *operation!='3' && *operation!='4' && *operation!='m')) {
+			if (( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/'  && *operation!='x' && *operation!='i' && *operation!='3' && *operation!='4' && *operation!='m' && *operation!='q')) {
 				cin.clear();
 				cin.ignore();
 				cout << "\nThis is not a valid choice!  Please choose again." << endl; 
@@ -204,9 +242,9 @@ int main() {
 			}
 	
 		}
-		while ( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/' && *operation!='q' && *operation!='i' && *operation!='3' && *operation!='4' && *operation!='m');
+		while ( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/' && *operation!='x' && *operation!='i' && *operation!='3' && *operation!='4' && *operation!='m' && *operation!='q');
 		
-		if (*operation!='q') {
+		if (*operation!='x') {
 			
 			double answer;
 			if (*operation=='+') {
@@ -225,7 +263,10 @@ int main() {
 				fourvector();
 			} else if (*operation=='m') {
 				invariantMass();
+			} else if (*operation=='q') {
+				rootsOfQuadratic();
 			}
+			
 			
 			
 			 
@@ -238,8 +279,8 @@ int main() {
 		}
 		
 	}
-	while (*operation!='q');
-	
+	while (*operation!='x');
+	cout << "Goodbye!" << endl;
 	
 	return 0;
 }
