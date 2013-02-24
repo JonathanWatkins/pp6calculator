@@ -1,3 +1,22 @@
+/* This is the pp6calculator written by Jonathan Watkins
+ * 
+ * Current features are
+ * 		- Addition
+ * 		- Subtraction
+ * 		- Multiplication
+ * 		- Division
+ * 		- Roots of a quadratic
+ * 		- Length of a 3-vector
+ * 		- Calculation of ds^2
+ * 		- Calculation of the invariant mass
+ * 		
+ * 
+ * 		Note: stringstreams are implemented for future use cases. 
+ * 					The function results are written to a streamstream and may be
+ * 					returned to the main loop rather than being immediately output
+ * 					to screen. 
+ */ 
+
 #include <iostream>
 #include <sstream>
 #include <string.h>
@@ -6,7 +25,6 @@
 
 using namespace std;
 
-// Just a quick bit on passing using pointerst
 
 double get_double (string question) {
 	if (question.empty()) {
@@ -26,15 +44,6 @@ double get_double (string question) {
     return a;
 }
 
-
-void f(int *a)
-{
-	int answer= *a *2;
-	*a=answer;
-	
-	
-}
-
 double multiply(){
 	
 	stringstream oss;
@@ -52,10 +61,14 @@ double divide(){
 	stringstream oss;
 	
 	double a= get_double("");
-	double b=get_double("");
+	double b;
+	do
+	{
+			b=get_double("");
+		if (0==b) cout << "This would give a divide by zero error. Please enter a different number!\n";
+	} while (0==b);
 	oss << a << " / " << b << " = " << a/b;
 	cout << oss.str();
-	
 	
 }
 
@@ -151,7 +164,7 @@ double invariantMass() {
 	double py= get_double("py: ");
 	double pz= get_double("pz: ");
 	
-	cout << "The invariant mass squared is m0^2 = " << E*E - px*px - py*py - pz*pz << endl;
+	oss << "The invariant mass squared is m0^2 = " << E*E - px*px - py*py - pz*pz << endl;
 	
 	cout << oss.str();
 	
@@ -159,70 +172,82 @@ double invariantMass() {
 
 double rootsOfQuadratic() {
 	
-    stringstream oss;
+		stringstream oss;
 	
-	cout << "A quadratic is defined as ax^2 + bx + c = 0" << endl;
-    cout << "Enter the coefficients" << endl;
-    double a= get_double("a=");
-	double b= get_double("b=");
-	double c= get_double("c=");
-	cout << a << endl;
-    cout << b << endl;
-    cout << c << endl;
+		cout << "A quadratic is defined as ax^2 + bx + c = 0" << endl;
+		cout << "Enter the coefficients" << endl;
+		double a;
+		do
+		{
+			a = get_double("a=");
+			if (0==a) cout << "a=0 does not define a quadratic. Please enter a different number!" << endl;
+		}
+		while (0==a);
+		double b= get_double("b=");
+		double c= get_double("c=");
+		cout << a << endl;
+		cout << b << endl;
+		cout << c << endl;
     
     double discriminant=b*b-4.0*a*c;
-    cout << "The discriminant is " << discriminant << endl;
+    oss << "The discriminant is " << discriminant << endl;
     if (discriminant>0) {  //   Real
-        cout << "The roots are real" << endl;
-        cout << "The roots are x = " << (-b+sqrt(discriminant))/2.0/a
+        oss << "The roots are real" << endl;
+        oss << "The roots are x = " << (-b+sqrt(discriminant))/2.0/a
             << " and x = " << (-b-sqrt(discriminant))/2.0/a << endl;
         
     }
     else if (0==discriminant) { // Single root
-        cout << "There is a single root" << endl;
-        cout << "The root is x = " << -b/2.0/a << endl;
+        oss << "There is a single root" << endl;
+        oss << "The root is x = " << -b/2.0/a << endl;
             
         
         
     }
     else if (discriminant<0) {  // Complex
-        cout << "The roots are complex" << endl;
-        cout << "The roots are x = ";
-        if (0!=-b/2.0/a) cout << -b/2.0/a << " ";
-        cout << "+ i" << sqrt(-discriminant)/2.0/a
+        oss << "The roots are complex" << endl;
+        oss << "The roots are x = ";
+        if (0!=-b/2.0/a) oss << -b/2.0/a << " ";
+        oss << "+ i" << sqrt(-discriminant)/2.0/a
         << " and x = ";
-        if (0!=-b/2.0/a) cout << -b/2.0/a << " ";
-        cout << "- i" << sqrt(-discriminant)/2.0/a << endl;
+        if (0!=-b/2.0/a) oss << -b/2.0/a << " ";
+        oss << "- i" << sqrt(-discriminant)/2.0/a << endl;
         
     
     }
+    
+    cout << oss.str();
     
 }
 
 
 int main() {
 	
-	int num1= 10;
-	
-	f(&num1);
-	
-	cout << num1 << endl;
-	
-	double a;
-	double b;
-	
 	char operation[1];
-	char ReturnStr[50];
 	
 	stringstream optionsOss;
 	
-	optionsOss << "What operation do you want to perform ?" << endl;
-	optionsOss << "'+' '-' '*' '/' 'i' 'q'uadractic solve '3'-vector '4'-vector invariant 'm'ass or 'x' to exit" << endl;
+	// The following defines the menu choices
+	// New choices must be added to if and while loops below
+	
+	optionsOss << "\nWhat operation do you want to perform ?" << endl;
+	optionsOss 	<< "------------------------------------------\n"
+							<< "'+' Addition\n"
+							<< "'-' Subtraction\n"
+							<< "'*' Multiplication\n"
+							<< "'/' Division\n"
+							<< "'i' Interception of a line with the x-axis\n"
+							<< "'q' Solve a quadratic\n"
+							<< "'3' Length of a vector\n"
+							<< "'4' ds^2 of a 4-vector\n"
+							<< "'m' Invariant mass\n"
+							<< "'x' to exit" << endl;
 		
 	
 	do
 	{
-	
+		
+		// Display the menu
 		cout << optionsOss.str();
 		
 		
@@ -246,7 +271,8 @@ int main() {
 		
 		if (*operation!='x') {
 			
-			double answer;
+			
+			// If exit is not chosen run the requested function
 			if (*operation=='+') {
 				add();
 			} else if (*operation=='-') {
@@ -267,19 +293,13 @@ int main() {
 				rootsOfQuadratic();
 			}
 			
-			
-			
-			 
-			
-			
-			
-			
 			cout << "\n\n";
 			
 		}
 		
 	}
 	while (*operation!='x');
+	
 	cout << "Goodbye!" << endl;
 	
 	return 0;
