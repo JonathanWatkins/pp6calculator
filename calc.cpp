@@ -22,7 +22,8 @@
 #include <string.h>
 #include <climits>
 #include <cmath>
-
+#include <iomanip>
+#include <cstdlib>
 
 using namespace std;
 
@@ -72,6 +73,73 @@ double swapInterface(string &fail){
 	
 	return 0;
 }
+
+double bubbleSort(int* a, int n) {
+
+	bool switched = false;
+	do
+	{
+		switched=false;	
+		for (int i=0;i<=n-2;i++) {
+			if (a[i]<a[i+1]) {
+				swap(a[i],a[i+1]);
+				switched=true;
+			}
+		}
+	
+		for (int i = 0; i<=n-1;i++) {
+			cout << setw(5) << a[i];
+		
+		}
+		cout << endl;
+		
+	}
+	while (true==switched);
+
+
+}
+
+double bubbleSortInterface(string &fail) {
+	
+	cout << "We will create an array with up to 10 random numbers. " ;
+	
+	double n;
+	do
+	{
+		n=get_double("What size N would you like ?: ");
+	
+		if (floor(n)!=n) cout << "This is not an integer you plank. Please enter a different number!\n";
+	}
+	while (floor(n)!=n);
+	
+	int *a = new int[(int)n];
+	
+	cout << "Starting Order" << endl;
+	
+	for (int i = 0; i<=n-1;i++) {
+		a[i]=rand()%100;	
+		cout << setw(5) << a[i];
+		
+	}
+	cout << endl << endl;
+	
+	bubbleSort(a,n);
+	
+	cout << "Final order" << endl;
+	for (int i = 0; i<=n-1;i++) {
+		cout << setw(5) << a[i];
+		
+	}
+	cout << endl;
+	
+	delete [] a;
+	
+	return 0;
+	
+	
+}
+
+
 
 
 
@@ -267,6 +335,7 @@ int main() {
 	
 	char operation[1];
 	string fail;
+	srand(time(0));
 	
 	stringstream optionsOss;
 	
@@ -285,6 +354,7 @@ int main() {
 							<< "'4' ds^2 of a 4-vector\n"
 							<< "'m' Invariant mass\n"
 							<< "'s' Swap doubles\n"
+							<< "'b' Bubble Sort\n"
 							<< "'x' to exit" << endl;
 		
 	
@@ -300,7 +370,7 @@ int main() {
 			
 			cin >> operation;
 			
-			if (( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/'  && *operation!='x' && *operation!='i' && *operation!='3' && *operation!='4' && *operation!='m' && *operation!='q' && *operation!='s')) {
+			if (( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/'  && *operation!='x' && *operation!='i' && *operation!='3' && *operation!='4' && *operation!='m' && *operation!='q' && *operation!='b' )) {
 				cin.clear();
 				cin.ignore();
 				cout << "\nThis is not a valid choice!  Please choose again." << endl; 
@@ -311,7 +381,7 @@ int main() {
 			}
 	
 		}
-		while ( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/' && *operation!='x' && *operation!='i' && *operation!='3' && *operation!='4' && *operation!='m' && *operation!='q' && *operation!='s');
+		while ( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/' && *operation!='x' && *operation!='i' && *operation!='3' && *operation!='4' && *operation!='m' && *operation!='q' && *operation!='s' && *operation!='b');
 		
 		if (*operation!='x') {
 			
@@ -337,7 +407,10 @@ int main() {
 				if(rootsOfQuadratic()) cout << "Function Failed";
 			} else if (*operation=='s') {
 				if(swapInterface(fail)) cout << "Function Failed - " << fail;
+			} else if (*operation=='b') {
+				if(bubbleSortInterface(fail)) cout << "Function Failed - " << fail;
 			}
+			
 			
 			
 			cout << "\n\n";
