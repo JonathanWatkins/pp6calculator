@@ -23,6 +23,7 @@
 #include <climits>
 #include <cmath>
 
+
 using namespace std;
 
 
@@ -44,6 +45,36 @@ double get_double (string question) {
     return a;
 }
 
+
+int swap(double& a, double& b) {
+	
+	double tmp = a;
+	a=b;
+	b=tmp;
+	
+	return 0;
+	
+}
+
+double swapInterface(string &fail){
+	
+	stringstream failstream;
+	double a=get_double("");
+	double b=get_double("");
+	
+	if(swap(a,b)) {
+		failstream << "swap() function returned an error";
+		fail= failstream.str();
+		return 1;
+	}
+	
+	cout << "a = " << a << endl << "b = " << b << endl; 
+	
+	return 0;
+}
+
+
+
 double multiply(){
 	
 	stringstream oss;
@@ -53,6 +84,7 @@ double multiply(){
 	oss << a << " * " << b << " = " << a*b;
 	cout << oss.str();
 	
+	return 0;
 	
 }
 
@@ -108,6 +140,8 @@ double intercept(){
 	
 	cout << oss.str();
 	
+	return 0;
+	
 }
 
 double threevector() {
@@ -121,6 +155,8 @@ double threevector() {
 	oss << "The length of the vector is : " << sqrt(a*a+b*b+c*c);
 	
 	cout << oss.str();
+	
+	return 0;
 	
 }
 
@@ -147,6 +183,8 @@ double fourvector() {
 	
 	cout << oss.str();
 	
+	return 0;
+	
 }
 
 double invariantMass() {
@@ -168,6 +206,8 @@ double invariantMass() {
 	
 	cout << oss.str();
 	
+	return 0;
+		
 }
 
 double rootsOfQuadratic() {
@@ -218,12 +258,15 @@ double rootsOfQuadratic() {
     
     cout << oss.str();
     
+    return 0;
+    
 }
 
 
 int main() {
 	
 	char operation[1];
+	string fail;
 	
 	stringstream optionsOss;
 	
@@ -241,6 +284,7 @@ int main() {
 							<< "'3' Length of a vector\n"
 							<< "'4' ds^2 of a 4-vector\n"
 							<< "'m' Invariant mass\n"
+							<< "'s' Swap doubles\n"
 							<< "'x' to exit" << endl;
 		
 	
@@ -256,7 +300,7 @@ int main() {
 			
 			cin >> operation;
 			
-			if (( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/'  && *operation!='x' && *operation!='i' && *operation!='3' && *operation!='4' && *operation!='m' && *operation!='q')) {
+			if (( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/'  && *operation!='x' && *operation!='i' && *operation!='3' && *operation!='4' && *operation!='m' && *operation!='q' && *operation!='s')) {
 				cin.clear();
 				cin.ignore();
 				cout << "\nThis is not a valid choice!  Please choose again." << endl; 
@@ -267,31 +311,34 @@ int main() {
 			}
 	
 		}
-		while ( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/' && *operation!='x' && *operation!='i' && *operation!='3' && *operation!='4' && *operation!='m' && *operation!='q');
+		while ( *operation!='+' && *operation!='-' && *operation!='*' && *operation!='/' && *operation!='x' && *operation!='i' && *operation!='3' && *operation!='4' && *operation!='m' && *operation!='q' && *operation!='s');
 		
 		if (*operation!='x') {
 			
 			
 			// If exit is not chosen run the requested function
 			if (*operation=='+') {
-				add();
+				if(add()) cout << "Function Failed";
 			} else if (*operation=='-') {
-				subtract();	
+				if(subtract()) cout << "Function Failed";	
 			} else if (*operation=='*') {
-				multiply();
+				if(multiply()) cout << "Function Failed";
 			} else if (*operation=='/') {
-				divide();
+				if(divide()) cout << "Function Failed";
 			} else if (*operation=='i') {
-				intercept();
+				if(intercept()) cout << "Function Failed";
 			} else if (*operation=='3') {
-				threevector();
+				if(threevector()) cout << "Function Failed";
 			} else if (*operation=='4') {
-				fourvector();
+				if(fourvector()) cout << "Function Failed";
 			} else if (*operation=='m') {
-				invariantMass();
+				if(invariantMass()) cout << "Function Failed";
 			} else if (*operation=='q') {
-				rootsOfQuadratic();
+				if(rootsOfQuadratic()) cout << "Function Failed";
+			} else if (*operation=='s') {
+				if(swapInterface(fail)) cout << "Function Failed - " << fail;
 			}
+			
 			
 			cout << "\n\n";
 			
