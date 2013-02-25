@@ -25,9 +25,9 @@
 #include <iomanip>
 #include <cstdlib>
 
-#include "maths.hpp"  // custom class library
+#include "maths.hpp"  // custom maths library
 
-//#inlude "physics.hpp"
+#include "physics.hpp"  // custom physics library
 
 
 using namespace std;
@@ -229,7 +229,7 @@ double fourvector() {
 	
 }
 
-double invariantMass() {
+double invariantMassInterface() {
 	
 	stringstream oss;
 	
@@ -244,7 +244,7 @@ double invariantMass() {
 	double py= get_double("py: ");
 	double pz= get_double("pz: ");
 	
-	oss << "The invariant mass squared is m0^2 = " << E*E - px*px - py*py - pz*pz << endl;
+	oss << "The invariant mass squared is m0^2 = " << invariantMass(E,px,py,pz) << endl;
 	
 	cout << oss.str();
 	
@@ -376,7 +376,7 @@ int main() {
 			} else if (*operation=='4') {
 				if(fourvector()) cout << "Function Failed";
 			} else if (*operation=='m') {
-				if(invariantMass()) cout << "Function Failed";
+				if(invariantMassInterface()) cout << "Function Failed";
 			} else if (*operation=='q') {
 				if(rootsOfQuadratic()) cout << "Function Failed";
 			} else if (*operation=='s') {

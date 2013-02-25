@@ -12,11 +12,14 @@ include_directories(include)
 # - Add the pp6calculator maths libaray
 add_library(pp6maths include/maths.hpp include/maths.cpp)
 
+# - Add the pp6calculator physics libray
+add_library(pp6physics include/physics.hpp include/physics.cpp)
+
 # - Add the pp6calculator executable
 add_executable(pp6calculator calc.cpp)
 
 # - Link pp6calculator to the pp6maths library
-target_link_libraries(pp6calculator pp6maths)
+target_link_libraries(pp6calculator pp6maths pp6physics)
 
 # - Install pp6calculator to the bin subdirectory of CMAKE_INSTALL_PREFIX
 install(TARGETS pp6calculator DESTINATION bin)
