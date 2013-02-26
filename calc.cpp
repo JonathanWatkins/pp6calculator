@@ -25,284 +25,17 @@
 #include <iomanip>
 #include <cstdlib>
 
-#include "maths.hpp"  // custom maths library
+#include "input.hpp"
+#include "maths.hpp"
+#include "physics.hpp"
 
-#include "physics.hpp"  // custom physics library
+#include "mainmenu.hpp"
 
 
 using namespace std;
 
 
 
-double get_double (string question) {
-	if (question.empty()) {
-	 question="Enter number: ";
-	}
-	
-	// Add error checking
-	double a;
-	cout << question;
-	
-	while (!(cin >> a)) {
-		cin.clear();
-		cin.ignore(INT_MAX,'\n');
-		cout << question;
-		
-	};
-    return a;
-}
-
-
-
-double swapInterface(string &fail){
-	
-	stringstream failstream;
-	double a=get_double("");
-	double b=get_double("");
-	
-	if(swap(a,b)) {
-		failstream << "swap() function returned an error";
-		fail= failstream.str();
-		return 1;
-	}
-	
-	cout << "a = " << a << endl << "b = " << b << endl; 
-	
-	return 0;
-}
-
-double bubbleSortInterface(string &fail) {
-	
-	cout << "We will create an array with up to 10 random numbers. " ;
-	
-	double n;
-	do
-	{
-		n=get_double("What size N would you like ?: ");
-	
-		if (floor(n)!=n) cout << "This is not an integer you plank. Please enter a different number!\n";
-	}
-	while (floor(n)!=n);
-	
-	int *a = new int[(int)n];
-	
-	cout << "Starting Order" << endl;
-	
-	for (int i = 0; i<=n-1;i++) {
-		a[i]=rand()%100;	
-		cout << setw(5) << a[i];
-		
-	}
-	cout << endl << endl;
-	
-	bubbleSort(a,n);
-	
-	cout << "Final order" << endl;
-	for (int i = 0; i<=n-1;i++) {
-		cout << setw(5) << a[i];
-		
-	}
-	cout << endl;
-	
-	delete [] a;
-	
-	return 0;
-	
-	
-}
-
-
-
-
-
-double multiply(){
-	
-	stringstream oss;
-	
-	double a= get_double("");
-	double b=get_double("");
-	oss << a << " * " << b << " = " << a*b;
-	cout << oss.str();
-	
-	return 0;
-	
-}
-
-double divide(){
-
-	stringstream oss;
-	
-	double a= get_double("");
-	double b;
-	do
-	{
-			b=get_double("");
-		if (0==b) cout << "This would give a divide by zero error. Please enter a different number!\n";
-	} while (0==b);
-	oss << a << " / " << b << " = " << a/b;
-	cout << oss.str();
-	
-}
-
-double add(){
-
-	stringstream oss;
-	
-	double a= get_double("");
-	double b=get_double("");
-	oss << a << " + " << b << " = " << a+b;
-	
-	cout << oss.str();
-}
-
-double subtract(){
-
-	stringstream oss;
-	
-	double a= get_double("");
-	double b=get_double("");
-	oss << a << " - " << b << " = " << a-b;
-	
-	cout << oss.str();
-	
-}
-
-double intercept(){
-
-	stringstream oss;
-	
-	
-	double m= get_double("m = ");
-	
-	double c=get_double("c = ");
-	
-	oss << "The intercept of the line with the x axis is " << (0-c)/m;
-	
-	cout << oss.str();
-	
-	return 0;
-	
-}
-
-double threevector() {
-	
-	stringstream oss;
-	
-	double a= get_double("Component 1: ");
-	double b= get_double("Component 2: ");
-	double c= get_double("Component 3: ");
-	
-	oss << "The length of the vector is : " << sqrt(a*a+b*b+c*c);
-	
-	cout << oss.str();
-	
-	return 0;
-	
-	
-	
-}
-
-double fourvector() {
-	
-	stringstream oss;
-	
-	double ct=get_double("ct: ");
-	double x= get_double("x: ");
-	double y= get_double("y: ");
-	double z= get_double("z: ");
-	
-	double dr2=x*x+y*y+z*z;
-	double ct2=ct*ct;
-	if (ct2>dr2) {
-		oss << "The interval is time-like and events are casually related." << endl;
-	} else if (ct2==dr2) {
-		oss << "The interval is light-like and events are casually related." << endl;
-	} else if (ct2<dr2) {
-		oss << "The interval is space-like and events lie outside each others light cone." << endl;
-	}
-	
-	oss << "The space-time interval is ds^2 = " << ct*ct-x*x-y*y-z*z;
-	
-	cout << oss.str();
-	
-	return 0;
-	
-}
-
-double invariantMassInterface() {
-	
-	stringstream oss;
-	
-	cout << "The Energy-momentum relation is defined as" << endl
-	<< "    E^2 = (pc)^2 + (m0 c^2)^2" << endl
-	<< "where p= gamma(u) m u and p= |p|" << endl
-	<< "From this definition the invariant mass is calculated as " << endl
-	<< "    m0^2 c^2 = (E/c)^2 - |p|^2  or m0^2=E^2-|p|^2 if c=1" << endl
-	<< "Note: E and p are measured differently depending on the observers frame." << endl << endl;  
-	double E= get_double("E: ");
-	double px= get_double("px: ");
-	double py= get_double("py: ");
-	double pz= get_double("pz: ");
-	
-	oss << "The invariant mass squared is m0^2 = " << invariantMass(E,px,py,pz) << endl;
-	
-	cout << oss.str();
-	
-	return 0;
-		
-}
-
-double rootsOfQuadratic() {
-	
-		stringstream oss;
-	
-		cout << "A quadratic is defined as ax^2 + bx + c = 0" << endl;
-		cout << "Enter the coefficients" << endl;
-		double a;
-		do
-		{
-			a = get_double("a=");
-			if (0==a) cout << "a=0 does not define a quadratic. Please enter a different number!" << endl;
-		}
-		while (0==a);
-		double b= get_double("b=");
-		double c= get_double("c=");
-		cout << a << endl;
-		cout << b << endl;
-		cout << c << endl;
-    
-    double discriminant=b*b-4.0*a*c;
-    oss << "The discriminant is " << discriminant << endl;
-    if (discriminant>0) {  //   Real
-        oss << "The roots are real" << endl;
-        oss << "The roots are x = " << (-b+sqrt(discriminant))/2.0/a
-            << " and x = " << (-b-sqrt(discriminant))/2.0/a << endl;
-        
-    }
-    else if (0==discriminant) { // Single root
-        oss << "There is a single root" << endl;
-        oss << "The root is x = " << -b/2.0/a << endl;
-            
-        
-        
-    }
-    else if (discriminant<0) {  // Complex
-        oss << "The roots are complex" << endl;
-        oss << "The roots are x = ";
-        if (0!=-b/2.0/a) oss << -b/2.0/a << " ";
-        oss << "+ i" << sqrt(-discriminant)/2.0/a
-        << " and x = ";
-        if (0!=-b/2.0/a) oss << -b/2.0/a << " ";
-        oss << "- i" << sqrt(-discriminant)/2.0/a << endl;
-        
-    
-    }
-    
-    cout << oss.str();
-    
-    return 0;
-    
-}
 
 
 int main() {
@@ -331,12 +64,15 @@ int main() {
 							<< "'b' Bubble Sort\n"
 							<< "'x' to exit" << endl;
 		
-	
+	bool Exit=false;
 	do
 	{
 		
+		
+		Exit=loopMenu_Main();
+		
 		// Display the menu
-		cout << optionsOss.str();
+		/*cout << optionsOss.str();
 		
 		
 		do
@@ -390,9 +126,11 @@ int main() {
 			cout << "\n\n";
 			
 		}
+		*/
+		
 		
 	}
-	while (*operation!='x');
+	while (false==Exit);
 	
 	cout << "Goodbye!" << endl;
 	
