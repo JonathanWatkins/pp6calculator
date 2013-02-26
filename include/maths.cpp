@@ -9,7 +9,9 @@
 
 int swap(double& a, double& b) {
 	
+	
 	double tmp = a;
+	
 	a=b;
 	b=tmp;
 	
@@ -27,7 +29,7 @@ int swap(int& a, int& b) {
 	
 }
 
-int bubbleSort(int* a, int n) {
+int bubbleSort(int* a, int *index, int n) {
 
 	bool switched = false;
 	do
@@ -36,14 +38,21 @@ int bubbleSort(int* a, int n) {
 		for (int i=0;i<=n-2;i++) {
 			if (a[i]<a[i+1]) {
 				swap(a[i],a[i+1]);
+				swap(index[i],index[i+1]);
 				switched=true;
 			}
 		}
 	
 		for (int i = 0; i<=n-1;i++) {
 			std::cout << std::setw(5) << a[i];
-		
 		}
+		std::cout << std::endl;
+		
+		for (int i = 0; i<=n-1;i++) {
+			std::cout << std::setw(5) << index[i];
+		}
+		
+		
 		std::cout << std::endl;
 		
 	}
@@ -52,7 +61,7 @@ int bubbleSort(int* a, int n) {
 	return 0;
 }
 
-int bubbleSort(double* a, double n) {
+int bubbleSort(double* a, int *index, int n) {
 
 	bool switched = false;
 	do
@@ -61,15 +70,21 @@ int bubbleSort(double* a, double n) {
 		for (int i=0;i<=n-2;i++) {
 			if (a[i]<a[i+1]) {
 				swap(a[i],a[i+1]);
+				swap(index[i],index[i+1]);
 				switched=true;
 			}
 		}
 	
 		for (int i = 0; i<=n-1;i++) {
-			std::cout << std::setw(5) << a[i];
+			std::cout << std::setprecision(3) << std::setw(5) << a[i];
 		
 		}
 		std::cout << std::endl;
+		for (int i = 0; i<=n-1;i++) {
+			std::cout << std::setw(5) << index[i];
+		}
+		std::cout << std::endl;
+		
 		
 	}
 	while (true==switched);
@@ -114,17 +129,18 @@ double bubbleSortInterface(std::string &fail) {
 	while (floor(n)!=n);
 	
 	int *a = new int[(int)n];
+	int *index = new int[(int)n];
 	
 	std::cout << "Starting Order" << std::endl;
 	
 	for (int i = 0; i<=n-1;i++) {
 		a[i]=rand()%100;	
 		std::cout << std::setw(5) << a[i];
-		
+		index[i]=i;
 	}
 	std::cout << std::endl << std::endl;
 	
-	bubbleSort(a,(int)n);
+	bubbleSort(a,index,(int)n);
 	
 	std::cout << "Final order" << std::endl;
 	for (int i = 0; i<=n-1;i++) {
@@ -134,7 +150,7 @@ double bubbleSortInterface(std::string &fail) {
 	std::cout << std::endl;
 	
 	delete [] a;
-	
+	delete [] index;
 	return 0;
 	
 	

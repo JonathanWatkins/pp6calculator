@@ -1,7 +1,58 @@
 #include "physics.hpp"
+#include "maths.hpp"
 #include <iostream>
 #include <sstream>
 #include "input.hpp"
+#include <list>
+#include <cmath>
+#include <cstdlib>
+
+class CParticle {
+	
+	private:
+			double E;
+	
+	public:
+		double mass, px, py, pz;
+		
+	public:
+	
+	CParticle() {
+			E=0;
+			mass=0;
+			px=0;
+			py=0;
+			pz=0;
+			
+	}
+	
+	~CParticle(){};
+	
+	double get_E(){
+		double p2=(px*px+py*py+pz*pz);
+		E=sqrt(mass*mass+p2);
+		return E;
+	}
+	
+	
+	/*void set_E(double Ein){
+		E=Ein;
+	}
+	
+	void set_mass(double massin){
+		mass=massin;
+	}
+	
+	void set_p(double pxin, double pyin, double pzin){
+		px=pxin;
+		py=pyin;
+		pz=pzin;
+	}*/
+	
+	
+	
+};
+
 
 double invariantMass(double E, double px, double py, double pz) {
 	return E*E - px*px - py*py - pz*pz;
@@ -58,3 +109,53 @@ double invariantMassInterface() {
 		
 }
 
+double meanMassOfRandParticles(){
+	
+	std::list<CParticle> particleList;
+	double energyArray[100];
+	int index[100];
+	
+	for (int i = 0;i<=99;i++) {
+			CParticle newParticle;
+			newParticle.px = rand()%201-100;
+			newParticle.py = rand()%201-100;
+			newParticle.pz = rand()%201-100;
+			newParticle.mass = rand()%21-10;
+			particleList.push_back(newParticle);
+			energyArray[i]=newParticle.get_E();
+			index[i]=i;
+	}
+	
+	bubbleSort(energyArray,index,100);
+	
+	double mean;
+	
+		for (std::list<CParticle>::iterator p = particleList.begin();
+			p!=particleList.end();++p) {
+		std::cout << p->get_E() << std::endl;
+				mean+= p->get_E();
+	}
+	mean/=100.0;
+	
+	double sd;
+	
+		for (std::list<CParticle>::iterator p = particleList.begin();
+			p!=particleList.end();++p) {
+				sd+=(p->get_E()-mean)*(p->get_E()-mean);
+	}
+	
+	sd/=100.0;
+	sd=sqrt(sd);
+	
+	std::cout << "Mean: " << mean << std::endl;
+	std::cout << "s.d: " << sd << std::endl;
+	
+	
+	
+	return 0;
+}
+
+double muTwoParticle() {
+
+	return 0;
+}

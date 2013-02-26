@@ -8,9 +8,9 @@ int swap(double& a, double& b);
 
 int swap(int& a, int& b);
 
-int bubbleSort(double* a, int n);
+int bubbleSort(double* a, int* index, int n);
 
-int bubbleSort(int* a, int n);
+int bubbleSort(int* a, int* index, int n);
 
 /*---------------------------------
  * 

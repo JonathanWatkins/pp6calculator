@@ -3,10 +3,13 @@
 
 double invariantMass(double E, double px, double py, double pz);
 
-
 double fourvector();
 
 double invariantMassInterface();
+
+double meanMassOfRandParticles();
+
+double muTwoParticle();
 
 
 #endif
