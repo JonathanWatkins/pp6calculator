@@ -6,6 +6,8 @@
 #include <list>
 #include <cmath>
 #include <cstdlib>
+#include "FileReader.hpp"
+
 
 class CParticle {
 	
@@ -14,6 +16,8 @@ class CParticle {
 	
 	public:
 		double mass, px, py, pz;
+		int event;
+		std::string name, source;
 		
 	public:
 	
@@ -23,6 +27,9 @@ class CParticle {
 			px=0;
 			py=0;
 			pz=0;
+			name="";
+			source="";
+			event=0;
 			
 	}
 	
@@ -126,7 +133,7 @@ double meanMassOfRandParticles(){
 			index[i]=i;
 	}
 	
-	bubbleSort(energyArray,index,100);
+	bubbleSort(energyArray,index,100,true);
 	
 	double mean;
 	
@@ -156,6 +163,78 @@ double meanMassOfRandParticles(){
 }
 
 double muTwoParticle() {
+
+	std::list<CParticle> muPlusParticleList;
+	std::list<CParticle> muMinusParticleList;
+	
+	std::cout << "Two Particle" << std::endl;
+	// Open the file to be read
+	FileReader f("data//observedparticles.dat");
+	
+	// Only process if the file is open/valid
+	if (f.isValid()) {
+	  
+	  // Loop until out of lines
+	  f.nextLine();
+	  
+	  while (f.nextLine()) {
+	    // Fields in each line line are treated as whitespace separated
+	    // and co-unted from 1. Fields can be retrieved as one of four main
+	    // types
+			
+			// int string double double double string
+	
+	    // retrieve field 1 of current line as an integer
+	    int event = f.getFieldAsInt(1);
+	
+	    // retrieve field 2 as a float
+	    std::string name = f.getFieldAsString(2);
+			if (name!="mu+" && name!="mu-")
+				continue;
+				
+	    // retrieve field 3 as a double
+	    double px = f.getFieldAsDouble(3);
+	
+			double py = f.getFieldAsDouble(4);
+	
+	
+			double pz = f.getFieldAsDouble(5);
+	
+	    // retrieve field 4 as a float
+	    std::string source = f.getFieldAsString(6);
+			
+			// Check that input is o.k.
+	    if (f.inputFailed()) break;
+	    
+	    CParticle newParticle;
+	    newParticle.name=name;
+	    newParticle.event=event;
+	    newParticle.px = px;
+			newParticle.py = py;
+			newParticle.pz = pz;
+			newParticle.source=source;
+			
+			if ("mu+"==name)
+				muPlusParticleList.push_back(newParticle);
+			else if ("mu-"==name)
+				muMinusParticleList.push_back(newParticle);
+			
+			
+	  }
+	}
+	
+	
+	for (std::list<CParticle>::iterator p=muPlusParticleList.begin();
+			p!=muPlusParticleList.end(); ++p) {
+		std::cout << p->name << " " << p->event << std::endl;
+ 	}
+	
+	for (std::list<CParticle>::iterator p=muMinusParticleList.begin();
+			p!=muMinusParticleList.end(); ++p) {
+		std::cout << p->name << " " << p->event << std::endl;
+ 	}
+	
+
 
 	return 0;
 }
