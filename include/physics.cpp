@@ -234,6 +234,55 @@ double muTwoParticle() {
 		std::cout << p->name << " " << p->event << std::endl;
  	}
 	
+	std::list<CParticle> pairsList;
+	
+	for (std::list<CParticle>::iterator p=muPlusParticleList.begin();
+			p!=muPlusParticleList.end(); ++p) {
+		for (std::list<CParticle>::iterator q=muMinusParticleList.begin();
+				q!=muMinusParticleList.end(); ++q) {
+			std::stringstream ss;
+			
+			
+			CParticle newPair;
+			ss << p->event << "/" << q->event;
+	    newPair.name=ss.str();
+	    newPair.px = p->px+q->px;
+			newPair.py = p->py+q->py;
+			newPair.pz = p->pz+q->pz;
+			//newPair.source=source;
+			
+			pairsList.push_back(newPair);
+		}	
+	}
+	int n = pairsList.size();
+	int *index = new int[(int)n];
+	double *energyArray = new double[(int)n];
+		
+		
+	int i=0;		
+	for (std::list<CParticle>::iterator p=pairsList.begin();
+			p!=pairsList.end(); ++p) {
+		
+		energyArray[i]=p->get_E();
+		index[i]=i;
+		
+		i++;
+ 	}
+
+	bubbleSort(energyArray,index,100,true);
+	
+	for (int i = 0; i<=10;i++ ) {
+		std:: cout << energyArray[i] << std::endl; 
+			
+		
+	}
+		
+	
+	
+	
+	delete [] index;
+	delete [] energyArray;
+	
 
 
 	return 0;
