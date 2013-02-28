@@ -77,6 +77,13 @@ int bubbleSort(double* a, int *index, int n, bool showsteps) {
 		
 			}
 			std::cout << std::endl;
+			
+			for (int i = 0; i<=n-1;i++) {
+				std::cout << std::setprecision(3) << std::setw(5) << index[i];
+		
+			}
+			std::cout << std::endl;
+			
 		}
 		
 		
@@ -109,27 +116,13 @@ int bubbleSort(double* a, int *index, int n, bool showsteps) {
 	return 0;
 }
 
-double bubbleSortInterface(std::string &fail) {
+int indexedBubbleSort(int *a, int *index, int n) {
 	
-	std::cout << "We will create an array with up to 10 random numbers. " ;
-	
-	double n;
-	do
-	{
-		n=get_double("What size N would you like ?: ");
-	
-		if (floor(n)!=n) std::cout << "This is not an integer you plank. Please enter a different number!\n";
-	}
-	while (floor(n)!=n);
-	
-	int *a = new int[(int)n];
 	int *rank = new int[(int)n];
-	int *index = new int[(int)n];
 	int *start = new int[(int)n];
 
 	
 	for (int i = 0; i<=n-1;i++) {
-		a[i]=rand()%100;	
 		start[i]=a[i];
 		index[i]=(int)n-1-i;
 			
@@ -137,8 +130,6 @@ double bubbleSortInterface(std::string &fail) {
 	
 	std::cout << "Starting Order" << std::endl;
 		
-	
-	
 	
 	for (int i = 0; i<=n-1;i++) {
 		std::cout << std::setw(5) << a[i];
@@ -176,16 +167,114 @@ double bubbleSortInterface(std::string &fail) {
 	}
 	std::cout << std::endl;
 	for (int i = 0; i<=n-1;i++) {
-		std::cout << std::setw(5) << rank[i];
+		index[i]=rank[i];
+		std::cout << std::setw(5) << index[i];
 		
 	}
 	std::cout << std::endl;
 	
 	
-	delete [] a;
-	delete [] index;
+	
+	
 	delete [] rank;
 	delete [] start;
+	
+	return 0;
+}
+
+
+int indexedBubbleSort(double *a, int *index, int n) {
+	
+	int *rank = new int[(int)n];
+	double *start = new double[(int)n];
+
+	
+	for (int i = 0; i<=n-1;i++) {
+		start[i]=a[i];
+		index[i]=(int)n-1-i;
+			
+	}
+	
+	std::cout << "Starting Order" << std::endl;
+		
+	
+	for (int i = 0; i<=n-1;i++) {
+		std::cout << std::setw(5) << a[i];
+		
+	}
+	std::cout << std::endl;
+	
+	
+	
+	std::cout << std::endl;
+	
+	bubbleSort(a,index,(int)n,true);
+	
+	std::cout << "Final order" << std::endl;
+	
+	for (int i = 0; i<=n-1;i++) {
+		std::cout << std::setw(5) << a[i];
+		
+	}
+	std::cout << std::endl;
+	
+	
+	//reverse sort to find rank in orginal order
+	
+	for (int i=0;i<=n-1;i++) {  // set ranks
+		rank[i]=i;	
+	}
+	
+	
+	bubbleSort(index,rank,(int)n, false);
+	std::cout << "Rank" << std::endl;
+	for (int i = 0; i<=n-1;i++) {
+		std::cout << std::setw(5) << start[i];
+		
+	}
+	std::cout << std::endl;
+	for (int i = 0; i<=n-1;i++) {
+		index[i]=rank[i];
+		std::cout << std::setw(5) << index[i];
+		
+	}
+	std::cout << std::endl;
+	
+	
+	
+	
+	delete [] rank;
+	delete [] start;
+	
+	return 0;
+}
+
+double bubbleSortInterface(std::string &fail) {
+	
+	std::cout << "We will create an array with up to 10 random numbers. " ;
+	
+	double n;
+	do
+	{
+		n=get_double("What size N would you like ?: ");
+	
+		if (floor(n)!=n) std::cout << "This is not an integer you plank. Please enter a different number!\n";
+	}
+	while (floor(n)!=n);
+	
+	
+	int *a = new int[(int)n];
+	int *index = new int[(int)n];
+
+	
+	for (int i = 0; i<=n-1;i++) {
+		a[i]=rand()%100;	
+	}
+	indexedBubbleSort(a,index,(int)n);
+	
+	delete [] a;
+	delete [] index;
+	
 	return 0;
 	
 	

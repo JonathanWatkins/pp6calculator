@@ -8,6 +8,10 @@ int swap(double& a, double& b);
 
 int swap(int& a, int& b);
 
+int indexedBubbleSort(int *a, int *index, int n);
+
+int indexedBubbleSort(double *a, int *index, int n);
+
 int bubbleSort(double* a, int* index, int n, bool showsteps);
 
 int bubbleSort(int* a, int* index, int n, bool showsteps);

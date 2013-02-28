@@ -1,9 +1,11 @@
 #include "physics.hpp"
 #include "maths.hpp"
 #include <iostream>
+#include <iomanip>
 #include <sstream>
 #include "input.hpp"
 #include <list>
+#include <vector>
 #include <cmath>
 #include <cstdlib>
 #include "FileReader.hpp"
@@ -166,7 +168,7 @@ double muTwoParticle() {
 
 	std::list<CParticle> muPlusParticleList;
 	std::list<CParticle> muMinusParticleList;
-	
+	std::cout <<std::setprecision(3);
 	std::cout << "Two Particle" << std::endl;
 	// Open the file to be read
 	FileReader f("data//observedparticles.dat");
@@ -224,7 +226,7 @@ double muTwoParticle() {
 	}
 	
 	
-	for (std::list<CParticle>::iterator p=muPlusParticleList.begin();
+	/*for (std::list<CParticle>::iterator p=muPlusParticleList.begin();
 			p!=muPlusParticleList.end(); ++p) {
 		std::cout << p->name << " " << p->event << std::endl;
  	}
@@ -233,8 +235,9 @@ double muTwoParticle() {
 			p!=muMinusParticleList.end(); ++p) {
 		std::cout << p->name << " " << p->event << std::endl;
  	}
+	*/
 	
-	std::list<CParticle> pairsList;
+	std::vector<CParticle> pairsVector;
 	
 	for (std::list<CParticle>::iterator p=muPlusParticleList.begin();
 			p!=muPlusParticleList.end(); ++p) {
@@ -251,31 +254,47 @@ double muTwoParticle() {
 			newPair.pz = p->pz+q->pz;
 			//newPair.source=source;
 			
-			pairsList.push_back(newPair);
+			pairsVector.push_back(newPair);
 		}	
 	}
-	int n = pairsList.size();
+	int n = pairsVector.size();
 	int *index = new int[(int)n];
 	double *energyArray = new double[(int)n];
 		
 		
-	int i=0;		
-	for (std::list<CParticle>::iterator p=pairsList.begin();
-			p!=pairsList.end(); ++p) {
+	int i=0;	
+	for (std::vector<CParticle>::iterator p=pairsVector.begin();
+			p!=pairsVector.end(); ++p) {
 		
 		energyArray[i]=p->get_E();
 		index[i]=i;
-		
 		i++;
- 	}
-
-	bubbleSort(energyArray,index,100,true);
+	}
+	std::vector<CParticle> initialPairsVector=pairsVector;
 	
-	for (int i = 0; i<=10;i++ ) {
-		std:: cout << energyArray[i] << std::endl; 
-			
+	//for (int j=0;j<=pairsVector.size()-1;j++){
+	//	std::cout << j << "  " << pairsVector[j].name <<  "  " << pairsVector[j].get_E() << std::endl;
+		
+	//}
+	std::cout << std::endl;
+	std::cout << std::endl;
+	//indexedBubbleSort(energyArray,index,(int)n);
+	bubbleSort(energyArray,index,(int)n,false);
+	
+	std::cout << "10 Highest Invariant Mass Pairs" << std::endl;
+	int numPairs=10; // initialPairsVector.size() for all
+	for (int j=0;j<=numPairs-1;j++){
+		std::cout << j << ")"  << initialPairsVector[index[j]].name <<  "  "  << initialPairsVector[index[j]].get_E() << std::endl;
 		
 	}
+	std::cout << std::endl;
+	
+	
+	//for (int i = 0; i<=10;i++ ) {
+	//	std:: cout << energyArray[i] << std::endl; 
+			
+		
+	//}
 		
 	
 	
