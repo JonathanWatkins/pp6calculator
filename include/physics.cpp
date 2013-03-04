@@ -9,58 +9,7 @@
 #include <cmath>
 #include <cstdlib>
 #include "FileReader.hpp"
-
-
-class CParticle {
-	
-	private:
-			double E;
-	
-	public:
-		double mass, px, py, pz;
-		int event;
-		std::string name, source;
-		
-	public:
-	
-	CParticle() {
-			E=0;
-			mass=0;
-			px=0;
-			py=0;
-			pz=0;
-			name="";
-			source="";
-			event=0;
-			
-	}
-	
-	~CParticle(){};
-	
-	double get_E(){
-		double p2=(px*px+py*py+pz*pz);
-		E=sqrt(mass*mass+p2);
-		return E;
-	}
-	
-	
-	/*void set_E(double Ein){
-		E=Ein;
-	}
-	
-	void set_mass(double massin){
-		mass=massin;
-	}
-	
-	void set_p(double pxin, double pyin, double pzin){
-		px=pxin;
-		py=pyin;
-		pz=pzin;
-	}*/
-	
-	
-	
-};
+#include "CParticle.hpp"
 
 
 double invariantMass(double E, double px, double py, double pz) {
@@ -68,34 +17,27 @@ double invariantMass(double E, double px, double py, double pz) {
 }
 
 
-double fourvector() {
+int intervalInterface() {
 	
-	std::stringstream oss;
+	double ds2;
 	
 	double ct=get_double("ct: ");
 	double x= get_double("x: ");
 	double y= get_double("y: ");
 	double z= get_double("z: ");
 	
-	double dr2=x*x+y*y+z*z;
-	double ct2=ct*ct;
-	if (ct2>dr2) {
-		oss << "The interval is time-like and events are casually related." << std::endl;
-	} else if (ct2==dr2) {
-		oss << "The interval is light-like and events are casually related." << std::endl;
-	} else if (ct2<dr2) {
-		oss << "The interval is space-like and events lie outside each others light cone." << std::endl;
-	}
+	CFourVector newVector;
+	newVector.set(ct,x,y,z);
 	
-	oss << "The space-time interval is ds^2 = " << ct*ct-x*x-y*y-z*z;
+	std::string intervalType = newVector.get_intervalType();
 	
-	std::cout << oss.str();
+	std::cout << intervalType;
 	
 	return 0;
 	
 }
 
-double invariantMassInterface() {
+int invariantMassInterface() {
 	
 	std::stringstream oss;
 	
@@ -172,6 +114,11 @@ double muTwoParticle() {
 	std::cout << "Two Particle" << std::endl;
 	// Open the file to be read
 	FileReader f("data//observedparticles.dat");
+	if (!f.isValid()) {
+		std::cout << "There is not data at the location 'data/observedparticles.dat'" << std::endl;
+		return 1;
+	}
+	
 	
 	// Only process if the file is open/valid
 	if (f.isValid()) {
@@ -306,3 +253,68 @@ double muTwoParticle() {
 
 	return 0;
 }
+
+int zBooststInterface(){
+	
+	double ct=get_double("ct: ");
+	double x= get_double("x: ");
+	double y= get_double("y: ");
+	double z= get_double("z: ");
+	
+	CFourVector initialVector;
+	initialVector.set(ct,x,y,z);
+	
+	double velz=get_double("vz (in units of c): ");  //in units of c
+	
+	CFourVector boostedVector = initialVector.zboost(velz);
+	
+	std::cout << initialVector.get_intervalType();
+		
+	std::cout << "The boosted 4-vector is (" 
+	<< boostedVector.get_ct() << ", "
+	<< boostedVector.get_x() << ", "
+	<< boostedVector.get_y() << ", "
+	<< boostedVector.get_z() << ")" << std::endl;
+	
+	std::cout << boostedVector.get_intervalType();
+	
+	
+	
+	
+	
+	return 0;
+}
+
+int zBoostEpInterface(){
+	
+	double ct=get_double("E: ");
+	double x= get_double("px: ");
+	double y= get_double("py: ");
+	double z= get_double("pz: ");
+	
+	CFourVector initialVector;
+	initialVector.set(ct,x,y,z);
+	
+	double velz=get_double("vz (in units of c): ");  //in units of c
+	
+	CFourVector boostedVector = initialVector.zboost(velz);
+	
+	
+	std::cout << initialVector.get_intervalType();
+	
+	
+	std::cout << "The boosted 4-vector is (" 
+	<< boostedVector.get_ct() << ", "
+	<< boostedVector.get_x() << ", "
+	<< boostedVector.get_y() << ", "
+	<< boostedVector.get_z() << ")" << std::endl;
+	
+	std::cout << boostedVector.get_intervalType();
+
+	
+	
+	
+	
+	return 0;
+}
+

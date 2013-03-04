@@ -47,11 +47,11 @@ int loopMenu_Physics() {
 		if (choice=="1") {
 			if(invariantMassInterface()) std::cout << "Function Failed";
 		} else if (choice=="2") {
-			if(fourvector()) std::cout << "Function Failed";	
+			if(intervalInterface()) std::cout << "Function Failed";	
 		} else if (choice=="3") {
-			//if(zBoostEp()) std::cout << "Function Failed";	
+			if(zBoostEpInterface()) std::cout << "Function Failed";	
 		} else if (choice=="4") {
-			//if(zBoostst()) std::cout << "Function Failed";	
+			if(zBooststInterface()) std::cout << "Function Failed";	
 		} else if (choice=="x") {
 			Exit=true;
 		}	

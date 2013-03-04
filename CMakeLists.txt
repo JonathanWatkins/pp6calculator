@@ -20,7 +20,11 @@ include/menu.hpp include/menu.cpp
 include/mainmenu.hpp include/mainmenu.cpp
 include/mathsmenu.hpp include/mathsmenu.cpp
 include/physicsmenu.hpp include/physicsmenu.cpp
-include/advphysicsmenu.hpp include/advphysicsmenu.cpp)
+include/advphysicsmenu.hpp include/advphysicsmenu.cpp
+include/CFourVector.hpp include/CFourVector.cpp
+include/CParticle.hpp include/CParticle.cpp
+
+)
 
 
 # - Add the pp6calculator input libaray

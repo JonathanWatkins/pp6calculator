@@ -266,16 +266,16 @@ double bubbleSortInterface(std::string &fail) {
  */
  
  
-/* 
+
  
 double multiply(){
 	
-	stringstream oss;
+	std::stringstream oss;
 	
 	double a= get_double("");
 	double b=get_double("");
 	oss << a << " * " << b << " = " << a*b;
-	cout << oss.str();
+	std::cout << oss.str();
 	
 	return 0;
 	
@@ -283,46 +283,52 @@ double multiply(){
 
 double divide(){
 
-	stringstream oss;
+	std::stringstream oss;
 	
 	double a= get_double("");
 	double b;
 	do
 	{
 			b=get_double("");
-		if (0==b) cout << "This would give a divide by zero error. Please enter a different number!\n";
+		if (0==b) std::cout << "This would give a divide by zero error. Please enter a different number!\n";
 	} while (0==b);
 	oss << a << " / " << b << " = " << a/b;
-	cout << oss.str();
+	std::cout << oss.str();
+	
+	return 0;
 	
 }
 
 double add(){
 
-	stringstream oss;
+	std::stringstream oss;
 	
 	double a= get_double("");
 	double b=get_double("");
 	oss << a << " + " << b << " = " << a+b;
 	
-	cout << oss.str();
+	std::cout << oss.str();
+	
+	return 0;
 }
 
 double subtract(){
 
-	stringstream oss;
+	std::stringstream oss;
 	
 	double a= get_double("");
 	double b=get_double("");
 	oss << a << " - " << b << " = " << a-b;
 	
-	cout << oss.str();
+	std::cout << oss.str();
+	
+	return 0;
 	
 }
 
 double intercept(){
 
-	stringstream oss;
+	std::stringstream oss;
 	
 	
 	double m= get_double("m = ");
@@ -331,7 +337,7 @@ double intercept(){
 	
 	oss << "The intercept of the line with the x axis is " << (0-c)/m;
 	
-	cout << oss.str();
+	std::cout << oss.str();
 	
 	return 0;
 	
@@ -339,7 +345,7 @@ double intercept(){
 
 double threevector() {
 	
-	stringstream oss;
+	std::stringstream oss;
 	
 	double a= get_double("Component 1: ");
 	double b= get_double("Component 2: ");
@@ -347,7 +353,7 @@ double threevector() {
 	
 	oss << "The length of the vector is : " << sqrt(a*a+b*b+c*c);
 	
-	cout << oss.str();
+	std::cout << oss.str();
 	
 	return 0;
 	
@@ -357,53 +363,53 @@ double threevector() {
 
 double rootsOfQuadratic() {
 	
-		stringstream oss;
+		std::stringstream oss;
 	
-		cout << "A quadratic is defined as ax^2 + bx + c = 0" << endl;
-		cout << "Enter the coefficients" << endl;
+		std::cout << "A quadratic is defined as ax^2 + bx + c = 0" << std::endl;
+		std::cout << "Enter the coefficients" << std::endl;
 		double a;
 		do
 		{
 			a = get_double("a=");
-			if (0==a) cout << "a=0 does not define a quadratic. Please enter a different number!" << endl;
+			if (0==a) std::cout << "a=0 does not define a quadratic. Please enter a different number!" << std::endl;
 		}
 		while (0==a);
 		double b= get_double("b=");
 		double c= get_double("c=");
-		cout << a << endl;
-		cout << b << endl;
-		cout << c << endl;
+		std::cout << a << std::endl;
+		std::cout << b << std::endl;
+		std::cout << c << std::endl;
     
     double discriminant=b*b-4.0*a*c;
-    oss << "The discriminant is " << discriminant << endl;
+    oss << "The discriminant is " << discriminant << std::endl;
     if (discriminant>0) {  //   Real
-        oss << "The roots are real" << endl;
+        oss << "The roots are real" << std::endl;
         oss << "The roots are x = " << (-b+sqrt(discriminant))/2.0/a
-            << " and x = " << (-b-sqrt(discriminant))/2.0/a << endl;
+            << " and x = " << (-b-sqrt(discriminant))/2.0/a << std::endl;
         
     }
     else if (0==discriminant) { // Single root
-        oss << "There is a single root" << endl;
-        oss << "The root is x = " << -b/2.0/a << endl;
+        oss << "There is a single root" << std::endl;
+        oss << "The root is x = " << -b/2.0/a << std::endl;
             
         
         
     }
     else if (discriminant<0) {  // Complex
-        oss << "The roots are complex" << endl;
+        oss << "The roots are complex" << std::endl;
         oss << "The roots are x = ";
         if (0!=-b/2.0/a) oss << -b/2.0/a << " ";
         oss << "+ i" << sqrt(-discriminant)/2.0/a
         << " and x = ";
         if (0!=-b/2.0/a) oss << -b/2.0/a << " ";
-        oss << "- i" << sqrt(-discriminant)/2.0/a << endl;
+        oss << "- i" << sqrt(-discriminant)/2.0/a << std::endl;
         
     
     }
     
-    cout << oss.str();
+    std::cout << oss.str();
     
     return 0;
     
 } 
-*/
+

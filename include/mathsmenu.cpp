@@ -10,16 +10,16 @@ void showMenu_Maths() {
 	oss << "\nBasic Maths Operations\n"
 			<< "------------------------------------------\n"
 			<< "What operation do you want to perform ?\n"
-							<< "'+' Addition\n"
-							<< "'-' Subtraction\n"
-							<< "'*' Multiplication\n"
-							<< "'/' Division\n"
-							<< "'i' Interception of a line with the x-axis\n"
-							<< "'q' Solve a quadratic\n"
-							<< "'3' Length of a vector\n"
-							<< "'s' Swap doubles\n"
-							<< "'b' Bubble Sort\n"
-							<< "'x' to exit" << std::endl;
+							<< "1) Addition\n"
+							<< "2) Subtraction\n"
+							<< "3) Multiplication\n"
+							<< "4) Division\n"
+							<< "5) Interception of a line with the x-axis\n"
+							<< "6) Solve a quadratic\n"
+							<< "7) Length of a vector\n"
+							<< "8) Swap doubles\n"
+							<< "9) Bubble Sort\n"
+							<< "x) to exit" << std::endl;
 	
 	showMenu(oss.str());		
 
@@ -31,15 +31,15 @@ int loopMenu_Maths() {
 	char options[10];
 	std::string fail;
 	
-	options[0]='+';
-	options[1]='-';
-	options[2]='*';
-	options[3]='/';
-	options[4]='i';
-	options[5]='q';
-	options[6]='3';
-	options[7]='s';
-	options[8]='b';
+	options[0]='1';
+	options[1]='2';
+	options[2]='3';
+	options[3]='4';
+	options[4]='5';
+	options[5]='6';
+	options[6]='7';
+	options[7]='8';
+	options[8]='9';
 	options[9]='x';
 	
 	bool Exit=false;
@@ -52,23 +52,23 @@ int loopMenu_Maths() {
 		//std::cout << choice << std::endl;
 		
 	
-		if (choice=="+") {
-			//if(add()) cout << "Function Failed";
-		} else if (choice=="-") {
-			//if(subtract()) cout << "Function Failed";	
-		} else if (choice=="*") {
-			//if(multiply()) cout << "Function Failed";
-		} else if (choice=="/") {
-			//if(divide()) cout << "Function Failed";
-		} else if (choice=="i") {
-			//if(intercept()) cout << "Function Failed";
+		if (choice=="1") {
+			if(add()) std::cout << "Function Failed";
+		} else if (choice=="2") {
+			if(subtract()) std::cout << "Function Failed";	
 		} else if (choice=="3") {
-			//if(threevector()) cout << "Function Failed";
-		} else if (choice=="q") {
-			//if(rootsOfQuadratic()) cout << "Function Failed";
-		} else if (choice=="s") {
+			if(multiply()) std::cout << "Function Failed";
+		} else if (choice=="4") {
+			if(divide()) std::cout << "Function Failed";
+		} else if (choice=="5") {
+			if(intercept()) std::cout << "Function Failed";
+		} else if (choice=="6") {
+			if(threevector()) std::cout << "Function Failed";
+		} else if (choice=="7") {
+			if(rootsOfQuadratic()) std::cout << "Function Failed";
+		} else if (choice=="8") {
 			if(swapInterface(fail)) std::cout << "Function Failed - " << fail;
-		} else if (choice=="b") {
+		} else if (choice=="9") {
 			if(bubbleSortInterface(fail)) std::cout << "Function Failed - " << fail;
 		} else if (choice=="x") {
 			Exit=true;
