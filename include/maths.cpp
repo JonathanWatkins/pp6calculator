@@ -7,10 +7,11 @@
 #include <sstream>
 #include "input.hpp"
 
-int swap(double& a, double& b) {
-	
-	
-	double tmp = a;
+template<typename typeA>
+int swap(typeA& a, typeA& b) {
+//int swap(double& a, double& b) {
+		
+	typeA tmp = a;
 	
 	a=b;
 	b=tmp;
@@ -19,7 +20,7 @@ int swap(double& a, double& b) {
 	
 }
 
-int swap(int& a, int& b) {
+/*int swap(int& a, int& b) {
 	
 	int tmp = a;
 	a=b;
@@ -28,36 +29,10 @@ int swap(int& a, int& b) {
 	return 0;
 	
 }
+*/
 
-int bubbleSort(int* a, int *index, int n, bool showsteps) {
 
-	bool switched = false;
-	do
-	{
-		switched=false;	
-		for (int i=0;i<=n-2;i++) {
-			if (a[i]<a[i+1]) {
-				swap(a[i],a[i+1]);
-				swap(index[i],index[i+1]);
-				switched=true;
-			}
-		}
-	
-		if (true==showsteps) {
-			for (int i = 0; i<=n-1;i++) {
-				std::cout << std::setw(5) << a[i];
-			}
-			std::cout << std::endl;
-		}
-		
-		
-	}
-	while (true==switched);
-
-	return 0;
-}
-
-int bubbleSort(double* a, int *index, int n, bool showsteps) {
+/*int bubbleSort(double* a, int *index, int n, bool showsteps) {
 
 	bool switched = false;
 	do
@@ -92,6 +67,7 @@ int bubbleSort(double* a, int *index, int n, bool showsteps) {
 
 	return 0;
 }
+*/
 
 /*-----------------------------------------
  * 
@@ -116,7 +92,8 @@ int bubbleSort(double* a, int *index, int n, bool showsteps) {
 	return 0;
 }
 
-int indexedBubbleSort(int *a, int *index, int n) {
+
+/*int indexedBubbleSort(int *a, int *index, int n) {
 	
 	int *rank = new int[(int)n];
 	int *start = new int[(int)n];
@@ -180,13 +157,13 @@ int indexedBubbleSort(int *a, int *index, int n) {
 	delete [] start;
 	
 	return 0;
-}
+}*/
 
-
-int indexedBubbleSort(double *a, int *index, int n) {
+template<typename typeA>
+int indexedBubbleSort(typeA *a, int *index, int n) {
 	
 	int *rank = new int[(int)n];
-	double *start = new double[(int)n];
+	typeA *start = new typeA[(int)n];
 
 	
 	for (int i = 0; i<=n-1;i++) {

@@ -3,18 +3,57 @@
 
 #include <iostream>
 #include <string.h>
+#include <iomanip>
 
-int swap(double& a, double& b);
 
-int swap(int& a, int& b);
+template<typename typeA>
+int swap(typeA& a, typeA& b);
 
-int indexedBubbleSort(int *a, int *index, int n);
+//int swap(double& a, double& b);
 
-int indexedBubbleSort(double *a, int *index, int n);
+//int swap(int& a, int& b);
 
-int bubbleSort(double* a, int* index, int n, bool showsteps);
+template<typename typeA>
+int indexedBubbleSort(typeA *a, int *index, int n);
 
-int bubbleSort(int* a, int* index, int n, bool showsteps);
+//int indexedBubbleSort(int *a, int *index, int n);
+
+//int indexedBubbleSort(double *a, int *index, int n);
+
+
+template<typename typeA>
+int bubbleSort(typeA* a, int* index, int n, bool showsteps) {
+
+	bool switched = false;
+	do
+	{
+		switched=false;	
+		for (int i=0;i<=n-2;i++) {
+			if (a[i]<a[i+1]) {
+				swap(a[i],a[i+1]);
+				swap(index[i],index[i+1]);
+				switched=true;
+			}
+		}
+	
+		if (true==showsteps) {
+			for (int i = 0; i<=n-1;i++) {
+				std::cout << std::setw(5) << a[i];
+			}
+			std::cout << std::endl;
+		}
+		
+		
+	}
+	while (true==switched);
+
+	return 0;
+};
+
+
+//int bubbleSort(double* a, int* index, int n, bool showsteps);
+
+//int bubbleSort(int* a, int* index, int n, bool showsteps);
 
 /*---------------------------------
  * 

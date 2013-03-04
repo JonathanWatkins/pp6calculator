@@ -11,9 +11,11 @@ void showMenu_Physics() {
 	oss << "\nBasic Physics Operations\n"
 			<< "------------------------------------------\n"
 			<< "What operation do you want to perform ?\n"
-							<< "'m' Invariant Mass\n"
-							<< "'4' Length of a 4-vector\n"
-							<< "'x' to exit" << std::endl;
+							<< "1) Invariant Mass\n"
+							<< "2) Length of a 4-vector\n"
+							<< "3) z-Boost E/p 4-Vector\n"
+							<< "4) z-Boost space-time 4-Vector\n"
+							<< "x) to exit" << std::endl;
 	
 	showMenu(oss.str());		
 
@@ -25,9 +27,11 @@ int loopMenu_Physics() {
 	char options[3];
 	std::string fail;
 	
-	options[0]='m';
-	options[1]='4';
-	options[2]='x';
+	options[0]='1';
+	options[1]='2';
+	options[2]='3';
+	options[3]='4';
+	options[4]='x';
 	
 	
 	bool Exit=false;
@@ -35,15 +39,19 @@ int loopMenu_Physics() {
 	
 		showMenu_Physics();
 		
-		std::string choice = loopMenu(options,3);
+		std::string choice = loopMenu(options,5);
 		
 		//std::cout << choice << std::endl;
 		
 	
-		if (choice=="m") {
+		if (choice=="1") {
 			if(invariantMassInterface()) std::cout << "Function Failed";
-		} else if (choice=="4") {
+		} else if (choice=="2") {
 			if(fourvector()) std::cout << "Function Failed";	
+		} else if (choice=="3") {
+			//if(zBoostEp()) std::cout << "Function Failed";	
+		} else if (choice=="4") {
+			//if(zBoostst()) std::cout << "Function Failed";	
 		} else if (choice=="x") {
 			Exit=true;
 		}	

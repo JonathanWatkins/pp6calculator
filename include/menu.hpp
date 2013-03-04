@@ -10,6 +10,4 @@ int showMenu(std::string);
 
 std::string loopMenu(char* choice, int numChoices);
 
-
-
 #endif
