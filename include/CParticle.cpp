@@ -10,6 +10,7 @@ CParticle::CParticle() {
 			name="";
 			source="";
 			event=0;
+			id=0;
 			
 }
 	

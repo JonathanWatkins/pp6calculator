@@ -134,23 +134,43 @@ double muTwoParticle() {
 			// int string double double double string
 	
 	    // retrieve field 1 of current line as an integer
-	    int event = f.getFieldAsInt(1);
-	
+	    //int event = f.getFieldAsInt(1);
+			bool error;
+			int event = f.getField<int>(1, error);
+			if (true==error) break;
+			
 	    // retrieve field 2 as a float
-	    std::string name = f.getFieldAsString(2);
+	    //std::string name = f.getFieldAsString(2);
+	    std::string name = f.getField<std::string>(2, error);
+	    if (true==error) break;
+			
 			if (name!="mu+" && name!="mu-")
 				continue;
 				
 	    // retrieve field 3 as a double
-	    double px = f.getFieldAsDouble(3);
+	    //double px = f.getFieldAsDouble(3);
 	
-			double py = f.getFieldAsDouble(4);
+			//double py = f.getFieldAsDouble(4);
 	
 	
-			double pz = f.getFieldAsDouble(5);
+			//double pz = f.getFieldAsDouble(5);
+	
+	
+			double px = f.getField<double>(3,error);
+			if (true==error) break;
+			
+			double py = f.getField<double>(4,error);
+			if (true==error) break;
+			
+	
+			double pz = f.getField<double>(5,error);
+			if (true==error) break;
+			
 	
 	    // retrieve field 4 as a float
-	    std::string source = f.getFieldAsString(6);
+	    //std::string source = f.getFieldAsString(6);
+			std::string source = f.getField<std::string>(6,error);
+			if (true==error) break;
 			
 			// Check that input is o.k.
 	    if (f.inputFailed()) break;
@@ -253,6 +273,87 @@ double muTwoParticle() {
 
 	return 0;
 }
+
+
+double readPDGDatbase() {
+
+	std::vector<std::string> nameVector;
+	std::vector<int> idVector;
+	std::vector<double> chargeVector;
+	std::vector<double> massVector;
+	
+	std::cout <<std::setprecision(3);
+	std::cout << "Read PDG Database" << std::endl;
+	// Open the file to be read
+	FileReader f("data//pdg.dbt");
+	if (!f.isValid()) {
+		std::cout << "There is not data at the location 'data/pdg.dbt'" << std::endl;
+		return 1;
+	}
+	
+	
+	// Only process if the file is open/valid
+	if (f.isValid()) {
+	  
+	  // Loop until out of lines
+	  //f.nextLine();
+	  
+	  while (f.nextLine()) {
+	    // Fields in each line line are treated as whitespace separated
+	    // and co-unted from 1. Fields can be retrieved as one of four main
+	    // types
+			
+			// int string double double double string
+	
+	    // retrieve field 1 of current line as an integer
+	    //int event = f.getFieldAsInt(1);
+			bool error;
+			std::string name = f.getField<std::string>(1, error);
+			if (true==error) break;
+			
+			
+			
+	    // retrieve field 2 as a float
+	    //std::string name = f.getFieldAsString(2);
+	    int id = f.getField<int>(2, error);
+	    if (true==error) break;
+			
+			// retrieve field 3 as a double
+	    //double px = f.getFieldAsDouble(3);
+	
+			//double py = f.getFieldAsDouble(4);
+	
+	
+			//double pz = f.getFieldAsDouble(5);
+	
+	
+			double charge = f.getField<double>(3,error);
+			if (true==error) break;
+			
+			double mass = f.getField<double>(4,error);
+			if (true==error) break;
+						
+			// Check that input is o.k.
+	    if (f.inputFailed()) break;
+	    
+	    nameVector.push_back(name);
+	    idVector.push_back(id);
+	    chargeVector.push_back(charge);
+	    massVector.push_back(mass);
+	    
+			
+	  }
+	}
+	
+	
+	for (std::vector<std::string>::iterator p=nameVector.begin();
+			p!=nameVector.end(); ++p) {
+		std::cout << *p << std::endl;
+ 	}
+	
+	return 0;
+}
+
 
 int zBooststInterface(){
 	

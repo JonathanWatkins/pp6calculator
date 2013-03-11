@@ -14,6 +14,7 @@ class CParticle {
 	public:
 		double mass, px, py, pz;
 		int event;
+		int id;
 		std::string name, source;
 		
 	public:

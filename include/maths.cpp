@@ -9,7 +9,6 @@
 
 template<typename typeA>
 int swap(typeA& a, typeA& b) {
-//int swap(double& a, double& b) {
 		
 	typeA tmp = a;
 	
@@ -19,55 +18,6 @@ int swap(typeA& a, typeA& b) {
 	return 0;
 	
 }
-
-/*int swap(int& a, int& b) {
-	
-	int tmp = a;
-	a=b;
-	b=tmp;
-	
-	return 0;
-	
-}
-*/
-
-
-/*int bubbleSort(double* a, int *index, int n, bool showsteps) {
-
-	bool switched = false;
-	do
-	{
-		switched=false;	
-		for (int i=0;i<=n-2;i++) {
-			if (a[i]<a[i+1]) {
-				swap(a[i],a[i+1]);
-				swap(index[i],index[i+1]);
-				switched=true;
-			}
-		}
-		
-		if (true==showsteps) {
-			for (int i = 0; i<=n-1;i++) {
-				std::cout << std::setprecision(3) << std::setw(5) << a[i];
-		
-			}
-			std::cout << std::endl;
-			
-			for (int i = 0; i<=n-1;i++) {
-				std::cout << std::setprecision(3) << std::setw(5) << index[i];
-		
-			}
-			std::cout << std::endl;
-			
-		}
-		
-		
-	}
-	while (true==switched);
-
-	return 0;
-}
-*/
 
 /*-----------------------------------------
  * 
@@ -91,73 +41,6 @@ int swap(typeA& a, typeA& b) {
 	
 	return 0;
 }
-
-
-/*int indexedBubbleSort(int *a, int *index, int n) {
-	
-	int *rank = new int[(int)n];
-	int *start = new int[(int)n];
-
-	
-	for (int i = 0; i<=n-1;i++) {
-		start[i]=a[i];
-		index[i]=(int)n-1-i;
-			
-	}
-	
-	std::cout << "Starting Order" << std::endl;
-		
-	
-	for (int i = 0; i<=n-1;i++) {
-		std::cout << std::setw(5) << a[i];
-		
-	}
-	std::cout << std::endl;
-	
-	
-	
-	std::cout << std::endl;
-	
-	bubbleSort(a,index,(int)n,true);
-	
-	std::cout << "Final order" << std::endl;
-	
-	for (int i = 0; i<=n-1;i++) {
-		std::cout << std::setw(5) << a[i];
-		
-	}
-	std::cout << std::endl;
-	
-	
-	//reverse sort to find rank in orginal order
-	
-	for (int i=0;i<=n-1;i++) {  // set ranks
-		rank[i]=i;	
-	}
-	
-	
-	bubbleSort(index,rank,(int)n, false);
-	std::cout << "Rank" << std::endl;
-	for (int i = 0; i<=n-1;i++) {
-		std::cout << std::setw(5) << start[i];
-		
-	}
-	std::cout << std::endl;
-	for (int i = 0; i<=n-1;i++) {
-		index[i]=rank[i];
-		std::cout << std::setw(5) << index[i];
-		
-	}
-	std::cout << std::endl;
-	
-	
-	
-	
-	delete [] rank;
-	delete [] start;
-	
-	return 0;
-}*/
 
 template<typename typeA>
 int indexedBubbleSort(typeA *a, int *index, int n) {
@@ -412,4 +295,3 @@ double rootsOfQuadratic() {
     return 0;
     
 } 
-

@@ -6,20 +6,11 @@
 #include <iomanip>
 
 
-template<typename typeA>
+template<typename typeA>  // This is an example of Static Polymorphism. It cannot be changed at run-time. This would be dynamic polymorphism
 int swap(typeA& a, typeA& b);
-
-//int swap(double& a, double& b);
-
-//int swap(int& a, int& b);
 
 template<typename typeA>
 int indexedBubbleSort(typeA *a, int *index, int n);
-
-//int indexedBubbleSort(int *a, int *index, int n);
-
-//int indexedBubbleSort(double *a, int *index, int n);
-
 
 template<typename typeA>
 int bubbleSort(typeA* a, int* index, int n, bool showsteps) {
@@ -51,9 +42,7 @@ int bubbleSort(typeA* a, int* index, int n, bool showsteps) {
 };
 
 
-//int bubbleSort(double* a, int* index, int n, bool showsteps);
 
-//int bubbleSort(int* a, int* index, int n, bool showsteps);
 
 /*---------------------------------
  * 
