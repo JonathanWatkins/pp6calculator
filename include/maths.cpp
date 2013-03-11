@@ -6,6 +6,9 @@
 #include <cstdlib>
 #include <sstream>
 #include "input.hpp"
+#include <vector>
+#include <algorithm>
+#include <iterator>
 
 template<typename typeA>
 int swap(typeA& a, typeA& b) {
@@ -295,3 +298,39 @@ double rootsOfQuadratic() {
     return 0;
     
 } 
+
+int RandomNum() {
+	
+	return rand()%100;
+	
+}
+
+
+
+
+int algorithms() {
+	
+	std::vector<int> newVector(10);
+	
+	generate(newVector.begin(), newVector.end(),RandomNum);
+	
+	std::cout << "Original List\n";
+	std::copy(newVector.begin(), newVector.end(),
+			std::ostream_iterator<int>(std::cout, "\n"));
+	
+	std::cout << "Min element: ";
+	std::cout << *std::min_element(newVector.begin(), newVector.end()) << std::endl;
+	
+	std::cout << "Max element: ";
+	std::cout << *std::max_element(newVector.begin(), newVector.end()) <<std::endl;
+		
+	sort(newVector.begin(), newVector.end());
+	
+	std::cout << "Sorted List\n";
+	
+	std::copy(newVector.begin(), newVector.end(),
+			std::ostream_iterator<int>(std::cout, "\n"));
+	
+	
+	return 0;
+}

@@ -23,7 +23,7 @@ include/physicsmenu.hpp include/physicsmenu.cpp
 include/advphysicsmenu.hpp include/advphysicsmenu.cpp
 include/CFourVector.hpp include/CFourVector.cpp
 include/CParticle.hpp include/CParticle.cpp
-
+include/CParticleInfo.hpp include/CParticleInfo.cpp
 )
 
 

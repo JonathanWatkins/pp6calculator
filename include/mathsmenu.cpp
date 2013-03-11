@@ -19,6 +19,7 @@ void showMenu_Maths() {
 							<< "7) Length of a vector\n"
 							<< "8) Swap doubles\n"
 							<< "9) Bubble Sort\n"
+							<< "a) Algorithms\n"
 							<< "x) to exit" << std::endl;
 	
 	showMenu(oss.str());		
@@ -28,7 +29,7 @@ void showMenu_Maths() {
 int loopMenu_Maths() {
 	
 
-	char options[10];
+	char options[11];
 	std::string fail;
 	
 	options[0]='1';
@@ -40,14 +41,15 @@ int loopMenu_Maths() {
 	options[6]='7';
 	options[7]='8';
 	options[8]='9';
-	options[9]='x';
+	options[9]='a';
+	options[10]='x';
 	
 	bool Exit=false;
 	do{
 	
 		showMenu_Maths();
 		
-		std::string choice = loopMenu(options,10);
+		std::string choice = loopMenu(options,11);
 		
 		//std::cout << choice << std::endl;
 		
@@ -70,6 +72,8 @@ int loopMenu_Maths() {
 			if(swapInterface(fail)) std::cout << "Function Failed - " << fail;
 		} else if (choice=="9") {
 			if(bubbleSortInterface(fail)) std::cout << "Function Failed - " << fail;
+		} else if (choice=="a") {
+			if(algorithms()) std::cout << "Function Failed - " << fail;
 		} else if (choice=="x") {
 			Exit=true;
 		}	

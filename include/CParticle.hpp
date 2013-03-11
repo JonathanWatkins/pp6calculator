@@ -24,6 +24,25 @@ class CParticle {
 	~CParticle();
 	
 	double get_E();
+	
+	
+	CParticle& operator=(const CParticle& rhs)
+	{
+			if (&rhs != this) {
+				mass = rhs.mass;
+				px = rhs.px;
+				py = rhs.py;
+				pz = rhs.pz;
+				event = rhs.event;
+				id = rhs.id;
+				name = rhs.name;
+				source = rhs.source;
+	
+			}
+		
+			return *this;
+		}	
+	
 		
 };
 

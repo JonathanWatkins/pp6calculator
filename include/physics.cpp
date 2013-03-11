@@ -10,7 +10,7 @@
 #include <cstdlib>
 #include "FileReader.hpp"
 #include "CParticle.hpp"
-
+#include "CParticleInfo.hpp"
 
 double invariantMass(double E, double px, double py, double pz) {
 	return E*E - px*px - py*py - pz*pz;
@@ -62,6 +62,7 @@ int invariantMassInterface() {
 
 double meanMassOfRandParticles(){
 	
+
 	std::list<CParticle> particleList;
 	double energyArray[100];
 	int index[100];
@@ -277,6 +278,7 @@ double muTwoParticle() {
 
 double readPDGDatbase() {
 
+	CParticleInfo particleInfoMap;
 	std::vector<std::string> nameVector;
 	std::vector<int> idVector;
 	std::vector<double> chargeVector;
@@ -336,21 +338,28 @@ double readPDGDatbase() {
 			// Check that input is o.k.
 	    if (f.inputFailed()) break;
 	    
+	   
+	    
 	    nameVector.push_back(name);
 	    idVector.push_back(id);
 	    chargeVector.push_back(charge);
 	    massVector.push_back(mass);
 	    
+	    particleInfoMap.addMaps(name,id,charge,mass);
+			
 			
 	  }
 	}
+	
+	
+	
 	
 	
 	for (std::vector<std::string>::iterator p=nameVector.begin();
 			p!=nameVector.end(); ++p) {
 		std::cout << *p << std::endl;
  	}
-	
+ 	
 	return 0;
 }
 

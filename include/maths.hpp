@@ -79,4 +79,6 @@ double threevector();
 
 double rootsOfQuadratic();
 
+int  algorithms();
+
 #endif
