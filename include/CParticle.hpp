@@ -38,7 +38,7 @@ class CParticle {
 	
 	double get_pz();
 	
-	int set_E(double);
+	int update_E();
 	
 	int zboost(double);
 	

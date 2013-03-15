@@ -17,7 +17,7 @@ CTwoBodyGenerator::CTwoBodyGenerator(const std::string Mother,const std::string 
 	mother.id=motherID;
 	mother.set_mass(ParticleInfoSingleton.getMass(motherID));
 	mother.charge=ParticleInfoSingleton.getCharge(motherID);
-	mother.get_E();
+	//mother.get_E();
 	
 	daughter1.name=Daughter1;
 	daughter1.id=daughter1ID;
@@ -55,8 +55,6 @@ std::vector<CParticle> CTwoBodyGenerator::generate (const double beta) const {
 
   // Use those to calculate the magnitude of the momentum of each daughter particle
   
-  
-  
   double length =	sqrt( d1M4 - 2*d1M2*d2M2 - 2*d1M2*mM2 + d2M4 - 2*d2M2*mM2 + mM4 ) / ( 2*mother.mass);
 	
 	double px = length * sin(theta)*cos(phi);
@@ -65,6 +63,12 @@ std::vector<CParticle> CTwoBodyGenerator::generate (const double beta) const {
  
 	CParticle newDaughter1= daughter1;
 	CParticle newDaughter2= daughter2;
+	
+	std::cout << newDaughter1.name << std::endl;
+	std::cout << newDaughter2.name << std::endl;
+	
+	std::cout << newDaughter1.get_E() << std::endl;
+	std::cout << newDaughter2.get_E() << std::endl;
 	
 	
 	newDaughter1.set_momentum(px,py,pz);

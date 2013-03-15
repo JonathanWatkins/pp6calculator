@@ -275,11 +275,12 @@ double muTwoParticle() {
 int runTwoBodyGenerator() {
 	
 	CParticleInfo& ParticleInfoSingleton(CParticleInfo::Instance());
-	std::cout << ParticleInfoSingleton.getID("B+") << std::endl;
+	std::cout << "MotherID: " << ParticleInfoSingleton.getID("B0") << std::endl;
+	std::cout << "Mother mass: " << ParticleInfoSingleton.getMass(ParticleInfoSingleton.getID("B0")) << std::endl;
 	
 	CTwoBodyGenerator newTwoBodyGenerator("B0","K+","pi-");
 	std::vector<CParticle> decaysVector = newTwoBodyGenerator.generate(0.2);
-	
+		
 	for (std::vector<CParticle>::iterator p = decaysVector.begin();
 			p != decaysVector.end(); ++p) {
 	
@@ -390,7 +391,7 @@ double readPDGDatbase() {
 		std::cout << *p << std::endl;
  	}
  	
- 	runTwoBodyGenerator();  // Test ParticleInfo Singleton
+ 	
  	
 	return 0;
 }

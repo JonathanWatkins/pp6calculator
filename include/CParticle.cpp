@@ -17,7 +17,7 @@ CParticle::CParticle() {
 	
 double CParticle::get_E(){
 		
-		return EM.get_ct();;
+		return EM.get_ct();
 }
 
 
@@ -29,15 +29,7 @@ int CParticle::set_momentum(double px_, double py_, double pz_)
 	EM.set_z(pz_);
 	
 	// set E
-	double px = EM.get_x();
-	double py = EM.get_y();
-	double pz = EM.get_z();
-
-		 
-	double p2=(px*px+py*py+pz*pz);	
-	double E=sqrt(mass*mass+p2);
-	
-	EM.set_ct(E);
+	update_E();
 		
 	return 0;
 	
@@ -46,6 +38,10 @@ int CParticle::set_momentum(double px_, double py_, double pz_)
 int CParticle::set_mass(double mass_)
 {
 	mass = mass_;
+	update_E();
+	
+	return 0;
+	
 }
 
 double CParticle::get_px()
@@ -63,10 +59,17 @@ double CParticle::get_pz()
 	return EM.get_z();
 }
 
-int CParticle::set_E(double E_)
+int CParticle::update_E()
 {
-	
-	EM.set_ct(E_);
+	double px = EM.get_x();
+	double py = EM.get_y();
+	double pz = EM.get_z();
+
+		 
+	double p2=(px*px+py*py+pz*pz);	
+	double E=sqrt(mass*mass+p2);
+		
+	EM.set_ct(E);
 	
 	return 0;
 }
