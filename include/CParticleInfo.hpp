@@ -9,16 +9,20 @@ class CParticleInfo {
 		
 public:
 	
+	static CParticleInfo& Instance();
+	
 	//typedef std::map<std::string,int> TPartIdMap;
 	std::map<std::string,int> NameIdMap;
 	std::map<int,std::string> IdNameMap;
 	std::map<int,double> IdChargeMap;
 	std::map<int,double> IdMassMap;
 	
-public:
+private:	
 	
-	CParticleInfo();
+	CParticleInfo(){};
 	~CParticleInfo();
+
+public:
 	
 	int getID(const std::string&) const;
 	std::string getName(const int) const;
@@ -26,6 +30,10 @@ public:
 	double getMass(const int) const;
 	
 	int addMaps(const std::string&, const int, const double, const double);
+	
+private:
+		
+	static CParticleInfo* theInstance;
 	
 };
 

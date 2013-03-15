@@ -5,10 +5,16 @@
 #include <cmath>
 #include <sstream>
 
+CParticleInfo* CParticleInfo::theInstance =0;
 
-CParticleInfo::CParticleInfo(){}
+CParticleInfo& CParticleInfo::Instance()
+{
+	if (theInstance == 0) {
+			theInstance = new CParticleInfo();
+	}
+	return *theInstance;
+}
 
-CParticleInfo::~CParticleInfo(){}
 
 int CParticleInfo::getID(const std::string& name) const
 {

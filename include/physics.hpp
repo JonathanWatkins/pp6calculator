@@ -20,5 +20,6 @@ int zBooststInterface();
 
 int zBoostEpInterface();
 
+int runTwoBodyGenerator();
 
 #endif

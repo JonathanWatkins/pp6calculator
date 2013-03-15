@@ -24,6 +24,8 @@ include/advphysicsmenu.hpp include/advphysicsmenu.cpp
 include/CFourVector.hpp include/CFourVector.cpp
 include/CParticle.hpp include/CParticle.cpp
 include/CParticleInfo.hpp include/CParticleInfo.cpp
+include/CEventGenerator.hpp
+include/CTwoBodyGenerator.hpp include/CTwoBodyGenerator.cpp
 )
 
 

@@ -11,6 +11,7 @@
 #include "FileReader.hpp"
 #include "CParticle.hpp"
 #include "CParticleInfo.hpp"
+#include "CTwoBodyGenerator.hpp"
 
 double invariantMass(double E, double px, double py, double pz) {
 	return E*E - px*px - py*py - pz*pz;
@@ -69,10 +70,9 @@ double meanMassOfRandParticles(){
 	
 	for (int i = 0;i<=99;i++) {
 			CParticle newParticle;
-			newParticle.px = rand()%201-100;
-			newParticle.py = rand()%201-100;
-			newParticle.pz = rand()%201-100;
-			newParticle.mass = rand()%21-10;
+			newParticle.set_momentum(rand()%201-100, rand()%201-100, rand()%201-100);
+			
+			newParticle.set_mass(rand()%21-10);
 			particleList.push_back(newParticle);
 			energyArray[i]=newParticle.get_E();
 			index[i]=i;
@@ -179,9 +179,7 @@ double muTwoParticle() {
 	    CParticle newParticle;
 	    newParticle.name=name;
 	    newParticle.event=event;
-	    newParticle.px = px;
-			newParticle.py = py;
-			newParticle.pz = pz;
+	    newParticle.set_momentum(px,py,pz);
 			newParticle.source=source;
 			
 			if ("mu+"==name)
@@ -217,9 +215,7 @@ double muTwoParticle() {
 			CParticle newPair;
 			ss << p->event << "/" << q->event;
 	    newPair.name=ss.str();
-	    newPair.px = p->px+q->px;
-			newPair.py = p->py+q->py;
-			newPair.pz = p->pz+q->pz;
+	    newPair.set_momentum(p->get_px()+q->get_px(), p->get_py()+q->get_py(), p->get_pz()+q->get_pz());
 			//newPair.source=source;
 			
 			pairsVector.push_back(newPair);
@@ -276,9 +272,44 @@ double muTwoParticle() {
 }
 
 
+int runTwoBodyGenerator() {
+	
+	CParticleInfo& ParticleInfoSingleton(CParticleInfo::Instance());
+	std::cout << ParticleInfoSingleton.getID("B+") << std::endl;
+	
+	CTwoBodyGenerator newTwoBodyGenerator("B0","K+","pi-");
+	std::vector<CParticle> decaysVector = newTwoBodyGenerator.generate(0.2);
+	
+	for (std::vector<CParticle>::iterator p = decaysVector.begin();
+			p != decaysVector.end(); ++p) {
+	
+		std::cout << p->get_px() << ", " << p->get_py() << ", " << p->get_pz() << std::endl;		
+	
+	
+	}
+	
+	std::cout << invariantMass(
+				decaysVector[0].get_E()+ decaysVector[1].get_E(),
+				decaysVector[0].get_px()+decaysVector[1].get_px(),
+				decaysVector[0].get_py()+decaysVector[1].get_py(),
+				decaysVector[0].get_pz()+ decaysVector[1].get_pz()) << std::endl;
+	
+	
+	
+	
+	return 0;
+	
+	
+}
+
+
 double readPDGDatbase() {
 
-	CParticleInfo particleInfoMap;
+	//CEventGenerator newEventGenerator;
+	
+	
+
+	CParticleInfo& ParticleInfoSingleton(CParticleInfo::Instance());
 	std::vector<std::string> nameVector;
 	std::vector<int> idVector;
 	std::vector<double> chargeVector;
@@ -345,12 +376,11 @@ double readPDGDatbase() {
 	    chargeVector.push_back(charge);
 	    massVector.push_back(mass);
 	    
-	    particleInfoMap.addMaps(name,id,charge,mass);
+	   ParticleInfoSingleton.addMaps(name,id,charge,mass);
 			
 			
 	  }
 	}
-	
 	
 	
 	
@@ -360,8 +390,11 @@ double readPDGDatbase() {
 		std::cout << *p << std::endl;
  	}
  	
+ 	runTwoBodyGenerator();  // Test ParticleInfo Singleton
+ 	
 	return 0;
 }
+
 
 
 int zBooststInterface(){

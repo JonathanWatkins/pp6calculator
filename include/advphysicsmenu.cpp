@@ -14,6 +14,7 @@ void showMenu_AdvPhysics() {
 							<< "1) Mean and S.D of invariant masses of random particles \n"
 							<< "2) Two-Particle mu+/mu- from observed.dat file\n"
 							<< "3) Import data from pdg.dbt file\n"
+							<< "4) Run single decay TwoBodyGenerator\n"
 							<< "x) to exit" << std::endl;
 	
 	showMenu(oss.str());		
@@ -23,13 +24,14 @@ void showMenu_AdvPhysics() {
 int loopMenu_AdvPhysics() {
 	
 	
-	char options[4];
+	char options[5];
 	std::string fail;
 	
 	options[0]='1';
 	options[1]='2';
 	options[2]='3';
-	options[3]='x';
+	options[3]='4';
+	options[4]='x';
 	
 	
 	bool Exit=false;
@@ -37,7 +39,7 @@ int loopMenu_AdvPhysics() {
 	
 		showMenu_AdvPhysics();
 		
-		std::string choice = loopMenu(options,4);
+		std::string choice = loopMenu(options,5);
 		
 		//std::cout << choice << std::endl;
 		
@@ -48,6 +50,8 @@ int loopMenu_AdvPhysics() {
 				if(muTwoParticle()) std::cout << "Function Failed";
 		} else if (choice=="3") {
 				if(readPDGDatbase()) std::cout << "Function Failed";
+		} else if (choice=="4") {
+				if(runTwoBodyGenerator()) std::cout << "Function Failed";
 		} else if (choice=="x") {
 			Exit=true;
 		}	

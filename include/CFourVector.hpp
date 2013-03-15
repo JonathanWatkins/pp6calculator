@@ -37,7 +37,6 @@ public:
 		
 		void set_z(double);
 		
-		
 		double get_ct();
 		
 		double get_x();
